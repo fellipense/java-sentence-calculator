@@ -10,7 +10,7 @@ public class Main {
         // Removing spaces in sentence
         sentence = sentence.replaceAll("\\s+","").toLowerCase();
 
-        System.out.println("Stating with: " + sentence);
+        System.out.println("Starting with: " + sentence);
         System.out.println("Final Result: " + Calculator.calc(sentence));
     }
 }
