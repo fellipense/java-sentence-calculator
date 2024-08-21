@@ -15,17 +15,26 @@ public class Calculator {
     static DecimalFormat df = new DecimalFormat("#.00000");
 
 
+    public static void main(String[] sentence) {
+	
+	try {
+		System.out.println("Final result: " + String.valueOf(calc(sentence[0])).replace(".0", ""));
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+
+    }
 
     // Calculates a valid sentence (validated by 'isValidSentence()').
     public static double calc(String sentence) throws Exception {
 
-        sentence = arrangeOperators(sentence);
+        sentence = arrangeOperators(sentence).replace(".0", "");
 
         if (isValidSentence(sentence)){
 
             double result = 0; // It will save the final result.
 
-            System.out.println("Calculating: " + sentence);
+            System.out.println("Calculating : " + sentence);
 
             // First: solve all brackets (consider Bracket == Parentheses) until there's none left.
             while (haveBrackets(sentence)){
@@ -57,8 +66,8 @@ public class Calculator {
 
                         String middleWithNoBrackets = middle.replace("(", "").replace(")", "");
 
-                        sentence = start + calc(middleWithNoBrackets) + end;
-                        System.out.println("New: " + sentence);
+                        sentence = (start + calc(middleWithNoBrackets) + end).replace(".0", "");
+                        System.out.println("New         : " + sentence);
                         break;
                     }
                     counter++;
@@ -122,8 +131,8 @@ public class Calculator {
                 String middle = String.valueOf(res);
                 String end = sentence.substring(openIndex + xTerm.length() + yTerm.length() + 1);
 
-                sentence = arrangeOperators(start + middle + end);
-                System.out.println("New: " + sentence);
+                sentence = arrangeOperators(start + middle + end).replace(".0", "");
+                System.out.println("New         : " + sentence);
             }
 
             // Third: solve all multiplications and divisions
@@ -173,14 +182,14 @@ public class Calculator {
                 String middle = String.valueOf(res);
                 String end = sentence.substring(openIndex + xTerm.length() + yTerm.length() + 1);
 
-                sentence = arrangeOperators(start + middle + end);
-                System.out.println("New: " + sentence);
+                sentence = arrangeOperators(start + middle + end).replace(".0", "");
+                System.out.println("New         : " + sentence);
             }
 
             // After solving all brackets, exponentiation, multiplications and divisions, let's do the addiction between all terms.
             List<String> termsList = new ArrayList<String>();
 
-            sentence = arrangeOperators(sentence);
+            sentence = arrangeOperators(sentence).replace(".0", "");
 
             String termBuilder = "";
             for (char c : sentence.toCharArray()){
@@ -202,7 +211,7 @@ public class Calculator {
 
 
             result = Double.parseDouble(df.format(result).replace(",", "."));
-            System.out.println("Throwing: " + result);
+            System.out.println("Throwing    : " + String.valueOf(result).replace(".0", ""));
             return result;
         }else{
             throw new Exception("Sentence '" + sentence + "' is invalid!");
